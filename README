@@ -1,0 +1,21 @@
+This is a production-ready regression parameter search and prediction using a
+bootstrapped ensemble of unpruned majority vote regression trees. Information
+gain on branching is calculated as RMSE of mean prediction.
+
+Please read "production-ready" as "yes, we had this running in production".
+We no longer do, as the 3GB model turned out to be not worth the RAM it was
+using. It could capture some of the problem space complexity, but generally
+speaking it was off the mark way too often to be useful.
+
+The implementation is not exactly blazingly fast, and memory consumption was
+never really optimized.
+
+Note that the offline parameter search is tailored to accept a very specific
+dataset, with each observation consisting of a floating point dependent
+variable, followed by four continuous predictors, followed by binary
+predictors until the end of the row. You'll need to change the hard-coded
+data reader in rg-train.cxx if you want to experiment with some other data
+layout.
+
+You'll need a working gearmand and client to experiment with prediction
+service, as that's the only platform supported.
